@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Complaints.css') }}"/>
+      <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/sidebar.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around form -->
+    <img src="../static/assets/Group.png" class="img-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-right-second"></img>
+
+    <div class="complaints-page" id="all-complaints-container">
+
+        <div class="sidebar">
+
+            <div class="sidebar-avatar">
+                <img src="../static/assets/Avatar.png" alt="">
+                <div class="avatar-details">
+                    <div>Product Designer</div>
+                    <div>Andrew Smith</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+
+                {% if session.get('is_admin') %}
+                <li >
+                    <a href="/dashboard" class="side-item">
+                        <img src="../static/assets/humbleicons_dashboard.png" alt="">
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if not session.get('is_admin') %}
+                <div class="dropdown">
+                    <li class="side-item" onclick="toggleDropdown()">
+                        <img src="../static/assets/mdi_report-box-outline.png" alt="">
+                        <div>Report</div>
+                    </li>
+
+                    <div class="dropdown-collapse" id="dropdown-target">
+
+                        <div class="dropdown-content">
+                            <a href="/new-report" class="dropdown-item">
+                                New Report
+                            </a>
+                            <a href="/past-report" class="dropdown-item">
+                                Past Report
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif %}
+
+                {% if session.get('is_admin') %}
+                <li>
+                    <a href="/complaints" class="side-item">
+                        <img src="../static/assets/zondicons_exclamation-outline.png" alt="">
+                        <div>Complaints</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/live"  class="side-item">
+                        <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                        <div>Live</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/notifications"  class="side-item">
+                        <img src="../static/assets/basil_notification-on-outline.png" alt="">
+                        <div>Notify</div>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+            
+            {% if not session.get('is_admin') %}
+            <div class="sidebar-footer">
+                <div class="text">
+                  <div>Let's start!</div>
+                  <p>Creating or adding new reports couldn't be easier</p>
+                </div>
+                <a class="new-report-btn">
+                  <img src="../static/assets/Frame 1039.png" />
+                  <div >Add New Reports</div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+        
+        <div class="carousel-container">
+            <div class="carousel-inner" id="complaints-carousel">
+                <!-- Carousel items will be appended here dynamically -->
+            </div>
+            <button class="prev-btn" onclick="prevSlide()">Prev</button>
+            <button class="next-btn" onclick="nextSlide()">Next</button>
+        </div>
+       
+
+    </div>
+
+</body>
+
+<script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById('dropdown-target');
+        dropdown.classList.toggle('active');
+    }
+    var slides;
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/complaints', {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(response => response.json()).then(data => {
+
+            if ('complaints_data' in data) {
+                // console.log("complaints_data = ",data)
+                const complaintsCarousel = document.getElementById('complaints-carousel');
+                data.complaints_data.forEach(complaint => {
+                    // console.log("single complaint in loop",complaint)
+                    const newComplaint = generateSlideHtml(complaint);
+                    complaintsCarousel.appendChild(newComplaint);
+                });
+
+                slides = document.querySelectorAll('.complaints-container');
+            } else {
+                console.log('Error: Complaints data not available');
+            }
+
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+
+    });
+
+    function generateSlideHtml(complaint) {
+        console.log("complaint : ",complaint);
+        const newComplaint = document.createElement('div');
+        newComplaint.classList.add('complaints-container');
+
+        const formHeading = document.createElement('div');
+        formHeading.classList.add('form-heading');
+
+        console.log("src : ",`${"."+complaint.photo}`)
+        formHeading.innerHTML=`
+            <div class="titles">
+                <div>Report</div>
+                
+                <div class="form-title">Past Report</div>
+
+                <div>Status : <strong>Negative</strong> </div>
+            </div>
+            <div class="avatar">
+                <div>
+                    <img src="${"."+complaint.photo}" alt="" >
+                    
+                </div>
+                
+            </div>
+        `
+
+        newComplaint.appendChild(formHeading)
+
+        const formComponents = document.createElement('div');
+        formComponents.innerHTML=`
+            
+            <div class="form-component">
+                <label>Name</label>
+                <div>${complaint.name}</div>
+            </div>
+            <div class="form-component">
+                <label>Date of birth</label>
+                <div>${complaint.dob}</div>
+            </div>
+            <div class="form-component">
+                <label>Gender</label>
+                <div>${complaint.gender}</div>
+            </div>
+            <div class="form-component">
+                <label>Suspected Location</label>
+                <div>${complaint.suspectedLocation}</div>
+            </div>
+            <div class="form-component">
+                <label>Last Date</label>
+                <div>${complaint.lastDate}</div>
+            </div>
+            <div class="form-component">
+                <label>Contact Number</label>
+                <div>${complaint.number}</div>
+            </div>
+            <div class="form-component">
+                <label>Contact Email</label>
+                <div>${complaint.email}</div>
+            </div>
+        `
+        
+        newComplaint.appendChild(formComponents)
+
+        return newComplaint;
+    }
+
+
+    let currentIndex = 0;
+    
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = (i === index) ? 'block' : 'none';
+            
+        });
+    }
+
+    function prevSlide() {
+        console.log(slides.length)
+        currentIndex = (currentIndex === 0) ? slides.length - 1 : currentIndex - 1;
+        console.log(currentIndex)
+        showSlide(currentIndex);
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex === slides.length - 1) ? 0 : currentIndex + 1;
+        console.log(currentIndex)
+        showSlide(currentIndex);
+    }
+
+    // Initial display
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log("chala")
+        showSlide(currentIndex);
+    });
+    
+
+
+</script>
+
+</html>

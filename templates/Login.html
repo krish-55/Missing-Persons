@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Login.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around login form -->
+    <img src="../static/assets/Group.png" class="img-login-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-login-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-login-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-login-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-login-right-second"></img>
+
+    <div class="login-container">
+        <form method="POST" id="loginForm" action="/">
+            <div class="logo">Missing Persons Detection</div>
+
+            <div class="form-title">Login</div>
+
+            <div class="form-component">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="username@gmail.com" required>
+            </div>
+            <div class="form-component">
+                <label for="Password">Password</label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+
+            <input type="hidden" id="latitude" name="latitude" value="">
+            <input type="hidden" id="longitude" name="longitude" value="">
+
+            <a class="forgot-pass" href="">Forgot Password?</a>
+
+            <button class="login-btn" type="submit">Login</button>
+
+            <div class="register">Don't have an account yet ? <a href="/signup">Register For Free</a> </div>
+        </form>
+    </div>
+    <!-- <script>
+        function validateForm() {
+            
+            var emailInput = document.getElementById('email');
+            var passwordInput = document.getElementById('password');
+
+            var email = emailInput.value.trim();
+            var password = passwordInput.value.trim();
+
+            alert('Form submitted successfully!');
+        }
+
+        
+    </script> -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+
+            function success(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Set the latitude and longitude values in the form
+                document.getElementById('latitude').value = latitude;
+                document.getElementById('longitude').value = longitude;
+
+                console.log(latitude, longitude)
+
+                // Now submit the form
+                event.target.submit();
+            }
+
+            function error() {
+                console.error('Error: Unable to retrieve geolocation');
+                // Consider whether you want to submit the form anyway or show an error
+                event.target.submit(); // This line submits the form without geolocation
+            }
+
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                console.error('Error: Geolocation is not supported by this browser');
+                event.target.submit(); // This line submits the form without geolocation
+            }
+        });
+    </script>
+
+</body>
+
+
+</html>

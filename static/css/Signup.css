@@ -1,0 +1,22 @@
+.login-container{
+
+    z-index: 1;
+    /* position: relative; */
+    width: 28rem;
+    height: 35rem!important;
+    flex-shrink: 0;
+    padding: 3rem;
+
+    border-radius: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(50px);
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+    color: white;
+    
+}

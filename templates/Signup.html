@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Login.css') }}"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Signup.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around login form -->
+    <img src="../static/assets/Group.png" class="img-login-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-login-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-login-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-login-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-login-right-second"></img>
+
+    <div class="login-container">
+        <form method="POST" action="/signup">
+            <div class="logo">Your Logo</div>
+
+            <div class="form-title">Signup</div>
+
+            <div class="form-component">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="username@gmail.com" name="email" required>
+            </div>
+            <div class="form-component">
+                <label for="Password">Password</label>
+                <input type="password" id="password" placeholder="password" name="password"required>
+            </div>
+            <div class="form-component">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm Password" name="confirm-password" required>
+            </div>
+
+            <button class="login-btn" type="submit">Signup</button>
+
+            <div class="register">Already have an account ? <a href="/">Login here</a> </div>
+        </form>
+    </div>
+    <script>
+        
+    </script>
+
+</body>
+
+
+</html>

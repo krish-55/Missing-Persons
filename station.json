@@ -1,0 +1,15 @@
+{
+    "status": "OK",
+    "results": [
+      {
+        "location": {
+          "lat": "13.0532700",
+          "lng": "80.2200700"
+        },
+        "name": "R2 Police Station-Kodambakkam",
+        "address": "Sivan Kovil Street, Kodambakkam, Chennai, Tamil Nadu, 600024",
+        "phone": "",
+        "distanceMeter": "826.49"
+      }
+    ]
+  }

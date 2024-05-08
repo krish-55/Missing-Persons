@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=PT+Sans+Caption:wght@400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    
+    background: radial-gradient(103.88% 58.43% at 56.74% 50%, #0085FF 0%, #003465 100%);
+    display: flex;
+    overflow: hidden;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.complaints-page{
+    display:flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    gap: 6rem;
+}
+
+.complaints-container{
+    z-index: 1;
+
+    width: 30%;
+    height: 90%;
+
+    /* width: 450px;
+  height: 600px; */
+    flex-shrink: 0;
+
+    padding: 3rem 3rem;
+
+    border-radius: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(50px);
+    
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+    
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-heading{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.titles{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    font-size: small;
+    font-weight: 550;
+}
+.form-title{
+    font-size: x-large;
+}
+
+
+.avatar img:first-child{
+    height: 4.5rem;
+    width: 4.5rem;
+
+    background-color: #F2C7BA;
+    border-radius: 100%;
+}
+
+.edit-btn{
+
+    background-color: white;
+    border-radius: 5px;
+
+    z-index: 2;
+    height: 1.25rem;
+    width: 1.25rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.view-details{
+    font-size: small;
+    cursor: pointer;
+}
+
+.form-component{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.form-component label{
+    font-weight: 550;
+    font-size: small;
+}
+
+.form-component input{
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin: 0.1rem 0;
+
+    border-radius: 0.35rem;
+    border: none;
+}
+
+
+/* img css */
+
+.img-top-left{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 15rem;
+    width: 15rem;
+}
+.img-bottom-left{
+    width: 15rem; 
+    height: 8rem;
+    transform: rotate(-10deg);
+    position: absolute;
+    bottom: 5rem;
+    left: -6rem;
+}
+.img-left-first{
+    z-index: -1;
+    width: 14.3125rem;
+    height: 8rem;
+    flex-shrink: 0;
+
+    position:absolute;
+    top: 12rem;
+    left: 23rem;
+}
+.img-left-second{
+    z-index: -1;
+    width: 11.0625rem;
+    height: 3.5625rem;
+    flex-shrink: 0;
+
+    position:absolute;
+    top: 27rem;
+    left: 24rem;
+}
+
+.img-left-third{
+    z-index: -1;
+    width: 16rem;
+    height: 12rem;
+    /* transform: rotate(-30deg); */
+    flex-shrink: 0;
+    
+    position:absolute;
+    top: 31.5rem;
+    left: 25.5rem;
+
+}
+.img-right-first{
+    z-index: -1;
+    width: 18rem;
+    height: 18rem;
+    flex-shrink: 0;
+
+    position: absolute;
+    right: 20rem;
+    top: 1.5rem;
+   
+}
+.img-right-second{
+    z-index: -1;
+    width: 12.9375rem;
+    height: 8rem;
+
+
+    position: absolute;
+    right: 24rem;
+    bottom: 7rem;
+
+}
+
+.img-middle-right{
+    width: 14.3125rem;
+    height: 9.5625rem;
+
+    position: absolute;
+    bottom: 18rem;
+    right: -2rem;
+}
+.img-bottom-right{
+    width: 16.0625rem;
+    height: 9.5625rem;
+    flex-shrink: 0;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+.form-component div{
+    width: 100%;
+    padding: 0.1rem 0.5rem;
+    margin: 0.1rem 0;
+    background-color: white;
+    color: black;
+    border-radius: 0.35rem;
+    border: none;
+}
+
+.carousel-container {
+    position: relative;
+    width: 40%;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.complaints-container {
+    width: 100%;
+    flex: 0 0 auto; /* Ensure each slide has its own width */
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    bottom: -0.5%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.prev-btn {
+    right: 51%;
+    z-index: 500;
+}
+
+.next-btn {
+    left:51%;
+    z-index: 500;
+}

@@ -1,0 +1,196 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    
+    background: radial-gradient(103.88% 58.43% at 56.74% 50%, #0085FF 0%, #003465 100%);
+    display: flex;
+    overflow: hidden;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.login-container{
+
+    z-index: 1;
+    /* position: relative; */
+    width: 28rem;
+    height: 30rem;
+    flex-shrink: 0;
+    padding: 3rem;
+
+    border-radius: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(50px);
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+    color: white;
+    
+}
+
+.logo{
+    font-size: large;
+    font-weight: 580;
+    margin-bottom: 0.5rem;
+}
+
+.form-title{
+    font-size: x-large;
+    font-weight: 580;
+    margin: 1rem 0;
+}
+
+.form-component{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.form-component label{
+    font-weight: 550;
+    font-size: small;
+}
+
+.form-component input{
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.1rem 0;
+
+    border-radius: 0.625rem;
+    border: none;
+}
+.login-btn{
+    display: block;
+
+    width: 100%;
+    padding: 0.5rem 0;
+    margin: 1rem 0;
+    border-radius: 0.625rem;
+    border: none;
+
+    background-color: #003465;
+    color: white;
+    font-size: large;
+    cursor: pointer;
+}
+
+.forgot-pass{
+    font-size: x-small;
+    font-weight: 550;
+}
+
+.register{
+    font-size: small;
+    text-align: center;
+}
+.register a{
+    font-weight: 550;
+}
+
+
+
+/* img css */
+
+.img-top-left{
+    height: 15rem;
+    width: 15rem;
+}
+.img-bottom-left{
+    width: 15rem; 
+    height: 8rem;
+    transform: rotate(-10deg);
+    position: absolute;
+    bottom: 5rem;
+    left: -6rem;
+}
+.img-login-left-first{
+    z-index: -1;
+    width: 14.3125rem;
+    height: 8rem;
+    flex-shrink: 0;
+
+    position:absolute;
+    top: 12rem;
+    left: 23rem;
+}
+.img-login-left-second{
+    z-index: -1;
+    width: 11.0625rem;
+    height: 3.5625rem;
+    flex-shrink: 0;
+
+    position:absolute;
+    top: 27rem;
+    left: 24rem;
+}
+
+.img-login-left-third{
+    z-index: -1;
+    width: 16rem;
+    height: 12rem;
+    /* transform: rotate(-30deg); */
+    flex-shrink: 0;
+    
+    position:absolute;
+    top: 31.5rem;
+    left: 25.5rem;
+
+}
+.img-login-right-first{
+    z-index: -1;
+    width: 18rem;
+    height: 18rem;
+    flex-shrink: 0;
+
+    position: absolute;
+    right: 25rem;
+    top: 1.5rem;
+   
+}
+.img-login-right-second{
+    z-index: -1;
+    width: 12.9375rem;
+    height: 8rem;
+
+
+    position: absolute;
+    right: 24rem;
+    bottom: 7rem;
+
+}
+
+.img-middle-right{
+    width: 14.3125rem;
+    height: 9.5625rem;
+
+    position: absolute;
+    bottom: 18rem;
+    right: -2rem;
+}
+.img-bottom-right{
+    width: 16.0625rem;
+    height: 9.5625rem;
+    flex-shrink: 0;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

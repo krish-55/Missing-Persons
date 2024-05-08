@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Report</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/NewReport.css') }}"/>
+      <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/sidebar.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around form -->
+    <img src="../static/assets/Group.png" class="img-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-right-second"></img>
+
+    <div class="report-page">
+
+        <div class="sidebar">
+
+            <div class="sidebar-avatar">
+                <img src="../static/assets/Avatar.png" alt="">
+                <div class="avatar-details">
+                    <div>Product Designer</div>
+                    <div>Andrew Smith</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+
+                {% if session.get('is_admin') %}
+                <li >
+                    <a href="/dashboard" class="side-item">
+                        <img src="../static/assets/humbleicons_dashboard.png" alt="">
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if not session.get('is_admin') %}
+                <div class="dropdown">
+                    <li class="side-item" onclick="toggleDropdown()">
+                        <img src="../static/assets/mdi_report-box-outline.png" alt="">
+                        <div>Report</div>
+                    </li>
+
+                    <div class="dropdown-collapse" id="dropdown-target">
+
+                        <div class="dropdown-content">
+                            <a href="/new-report" class="dropdown-item">
+                                New Report
+                            </a>
+                            <a href="/past-report" class="dropdown-item">
+                                Past Report
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif %}
+
+                {% if session.get('is_admin') %}
+                <li>
+                    <a href="/complaints" class="side-item">
+                        <img src="../static/assets/zondicons_exclamation-outline.png" alt="">
+                        <div>Complaints</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/live"  class="side-item">
+                        <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                        <div>Live</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/notifications"  class="side-item">
+                        <img src="../static/assets/basil_notification-on-outline.png" alt="">
+                        <div>Notify</div>
+                    </a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+            
+            {% if not session.get('is_admin') %}
+            <div class="sidebar-footer">
+                <div class="text">
+                  <div>Let's start!</div>
+                  <p>Creating or adding new reports couldn't be easier</p>
+                </div>
+                <a href="/new-report" class="new-report-btn">
+                  <img src="../static/assets/Frame 1039.png" />
+                  <div >Add New Reports</div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+
+        <div class="new-report-container">
+            
+            <div class="form-heading">
+                <div class="titles">
+                    <div>Report</div>
+                    
+                    <div class="form-title">New Report</div>
+                </div>
+                <div class="avatar">
+                    <img src="../static/assets/Avatar.png" id="avatarImage" alt="" >
+                    <img class="edit-btn" src="../static/assets/tabler_edit.png" alt="" onclick="addPhoto()">
+                </div>
+            </div>
+            
+            <form method="POST" action="/new-report">
+                
+                <div class="form-component">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                    <div class="form-component">
+                    <label for="dob">Date of birth</label>
+                    <input type="date" id="dob" name="dob">
+                </div>
+                <div class="form-component">
+                    <label for="gender">Gender</label>
+                    <input type="text" id="gender" name="gender">
+                </div>
+                <div class="form-component">
+                    <label for="loc">Suspected Location</label>
+                    <input type="text" id="loc" name="suspectedLocation">
+                </div>
+                <div class="form-component">
+                    <label for="lastDate">Last Date</label>
+                    <input type="date" id="lastDate" name="lastDate">
+                </div>
+                <div class="form-component">
+                    <label for="number">Contact Number</label>
+                    <input type="text" id="number" name="number">
+                </div>
+                <div class="form-component">
+                    <label for="email">Contact Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-component add-img">
+                    <label for="email">Add Photo</label>
+                    <div class="add-photo-btn" onclick="addPhoto()">Click To add photo</div>
+                    <input type="file"  accept="image/*" name="photo" id="photo" required multiple="false">
+                </div>
+
+
+                <div class="form-component">
+
+                    <button type="submit" class="send-report-btn">Add Report</button>
+                </div>
+
+
+                <div class="popup" id="successPopup">
+                    <div class="popup-content">
+                      <span class="close" onclick="closePopup()">&times;</span>
+                      <p>Report submitted successfully!</p>
+                    </div>
+                </div>
+                <div class="popup" id="failedPopup">
+                    <div class="popup-content">
+                      <span class="close" onclick="closePopup()">&times;</span>
+                      <p>Due to some Problem , report was not sent.</p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    
+<script>
+
+    function addPhoto(){
+
+        var inputPhoto = document.getElementById('photo')
+        var avatarImage = document.getElementById('avatarImage');
+        inputPhoto.click();
+
+        inputPhoto.addEventListener('change', function () {
+            if (inputPhoto.files && inputPhoto.files[0]) {
+                const imageURL = URL.createObjectURL(inputPhoto.files[0]);
+                avatarImage.src = imageURL;
+                
+            }
+        });
+
+    }
+    function toggleDropdown() {
+        var dropdown = document.getElementById('dropdown-target');
+        dropdown.classList.toggle('active');
+    }
+    function closePopup() {
+        document.getElementById("successPopup").classList.remove("show");
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+          
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            fetch('/new-report', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())  
+            .then(data => {
+           
+                if (data.success) {
+                    
+                    document.getElementById("successPopup").classList.add("show");
+                    form.reset();
+                } else {
+                    
+                    document.getElementById("failedPopup").classList.add("show");
+                    
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+
+
+</script>
+
+</body>
+
+
+</html>

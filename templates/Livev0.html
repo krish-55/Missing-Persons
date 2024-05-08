@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Live.css') }}"/>
+      <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/sidebar.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around form -->
+    <img src="../static/assets/Group.png" class="img-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-right-second"></img>
+
+    <div class="live-page">
+
+        <div class="sidebar">
+
+            <div class="sidebar-avatar">
+                <img src="../static/assets/Avatar.png" alt="">
+                <div class="avatar-details">
+                    <div>Product Designer</div>
+                    <div>Andrew Smith</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+
+                {% if session.get('is_admin') %}
+                <li >
+                    <a href="/dashboard" class="side-item">
+                        <img src="../static/assets/humbleicons_dashboard.png" alt="">
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if not session.get('is_admin') %}
+                <div class="dropdown">
+                    <li class="side-item" onclick="toggleDropdown()">
+                        <img src="../static/assets/mdi_report-box-outline.png" alt="">
+                        <div>Report</div>
+                    </li>
+
+                    <div class="dropdown-collapse" id="dropdown-target">
+
+                        <div class="dropdown-content">
+                            <a href="/new-report" class="dropdown-item">
+                                New Report
+                            </a>
+                            <a href="/past-report" class="dropdown-item">
+                                Past Report
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif %}
+
+                {% if session.get('is_admin') %}
+                <li>
+                    <a href="/complaints" class="side-item">
+                        <img src="../static/assets/zondicons_exclamation-outline.png" alt="">
+                        <div>Complaints</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/live"  class="side-item">
+                        <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                        <div>Live</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/notifications"  class="side-item">
+                        <img src="../static/assets/basil_notification-on-outline.png" alt="">
+                        <div>Notify</div>
+                    </a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+            
+            {% if not session.get('is_admin') %}
+            <div class="sidebar-footer">
+                <div class="text">
+                  <div>Let's start!</div>
+                  <p>Creating or adding new reports couldn't be easier</p>
+                </div>
+                <a class="new-report-btn">
+                  <img src="../static/assets/Frame 1039.png" />
+                  <div >Add New Reports</div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+
+        <div class="live-container">
+            
+            <div class="live-btn">
+                <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                <div>
+                    Live-Feed
+                </div>
+            </div>
+
+            <div class="live-outer">
+
+                <div class="live-feed-container">
+    
+                    <div class="live-feed">
+                        <div class="live-btn floating-btn">
+                            <img src="../static/assets/fluent_live-20-filled-red.png" alt="">
+                            <div>
+                                Live
+                            </div>
+                        </div>
+                        <video id="video-player" controls autoplay playsinline class="live-img"></video>
+                    </div>
+                    
+    
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoPlayer = document.getElementById('video-player');
+            videoPlayer.src = '/video_feed';
+        });
+</script>
+
+</html>

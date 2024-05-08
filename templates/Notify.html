@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Notify.css') }}"/>
+      <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/sidebar.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around form -->
+    <img src="../static/assets/Group.png" class="img-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-right-second"></img>
+
+    <div class="notify-page">
+
+        <div class="sidebar">
+
+            <div class="sidebar-avatar">
+                <img src="../static/assets/Avatar.png" alt="">
+                <div class="avatar-details">
+                    <div>Product Designer</div>
+                    <div>Andrew Smith</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+
+                {% if session.get('is_admin') %}
+                <li >
+                    <a href="/dashboard" class="side-item">
+                        <img src="../static/assets/humbleicons_dashboard.png" alt="">
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if not session.get('is_admin') %}
+                <div class="dropdown">
+                    <li class="side-item" onclick="toggleDropdown()">
+                        <img src="../static/assets/mdi_report-box-outline.png" alt="">
+                        <div>Report</div>
+                    </li>
+
+                    <div class="dropdown-collapse" id="dropdown-target">
+
+                        <div class="dropdown-content">
+                            <a href="/new-report" class="dropdown-item">
+                                New Report
+                            </a>
+                            <a href="/past-report" class="dropdown-item">
+                                Past Report
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif %}
+
+                {% if session.get('is_admin') %}
+                <li>
+                    <a href="/complaints" class="side-item">
+                        <img src="../static/assets/zondicons_exclamation-outline.png" alt="">
+                        <div>Complaints</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/live"  class="side-item">
+                        <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                        <div>Live</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/notifications"  class="side-item">
+                        <img src="../static/assets/basil_notification-on-outline.png" alt="">
+                        <div>Notify</div>
+                    </a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+            
+            {% if not session.get('is_admin') %}
+            <div class="sidebar-footer">
+                <div class="text">
+                  <div>Let's start!</div>
+                  <p>Creating or adding new reports couldn't be easier</p>
+                </div>
+                <a class="new-report-btn">
+                  <img src="../static/assets/Frame 1039.png" />
+                  <div >Add New Reports</div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+        <form action="./notifications" class="notify-container">
+            {% if response %}
+            <div>
+                <div class="notifi-content">
+                    <div class="notifi-details">
+                        <div class="notifi-heading">
+                            Match Found
+                        </div>
+
+                        <div class="notifi-img-container">
+                            <img src="../static/assets/image.png" alt="" class="notifi-img">
+                        </div>
+                    
+                        <div class="notifi-text">
+                            <div>Name : {{response.cname}}</div>
+                            <div>Missed At : {{response.clocation}}</div>
+                            <div>Report Filed On : {{response.cdate}}</div>
+                            <div>Contact : {{response.cnumber}}</div>
+                            <!-- <div>Last report received on : 12-08-2023</div> -->
+                        </div>
+                    
+                        <div class="notifi-text">
+                            <div>
+                                Submit First
+                            </div>
+                        </div>
+                    
+                    </div>
+                
+                    <div class="notifi-details">
+                        <div class="notifi-heading">
+                            Nearby Police Station
+                        </div>
+
+                        <div class="notifi-img-container">
+                            {{response.map | safe}}
+                            <!-- <img src="/static/assets/map.jpg" alt="Map"> -->
+                        </div>
+
+                        <div class="notifi-text">
+                            <div>Name : {{response.name}}</div>
+                            <div>Address : {{response.address}}</div>
+                        </div>
+                    </div>
+                
+                    <div class="notifi-details">
+                        <div class="notifi-heading">
+                            Notify the Nearby Police Station
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="notifying-btn">
+                    <button type="submit">Notify nearby station</button>
+                </div>
+            </div>
+            {% else %}
+            <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center; color: white;">
+                <h1>No Target Detected to enable Notification!</h1>
+            </div>
+            {% endif %}
+        </form>
+
+    </div>
+
+</body>
+
+<script>
+    
+</script>
+
+</html>

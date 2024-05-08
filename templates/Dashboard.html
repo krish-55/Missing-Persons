@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/Dashboard.css') }}"/>
+      <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/sidebar.css') }}"/>
+
+</head>
+<body>
+    
+    <!-- Images on the page -->
+    <img src="../static/assets/Group-1-1.png" alt="" class="img-top-left">
+    <img src="../static/assets/Group-5.png" alt="" class="img-bottom-left">
+    <img src="../static/assets/Group.png" alt="" class="img-middle-right">
+    <img src="../static/assets/Group-9.png" alt="" class="img-bottom-right">
+    
+    <!-- Images around form -->
+    <img src="../static/assets/Group.png" class="img-left-first"></img>
+    <img src="../static/assets/Group-4.png" class="img-left-second"></img>
+    <img src="../static/assets/Group-6.png" class="img-left-third"></img>
+
+    <img src="../static/assets/Group-11.png" class="img-right-first"></img>
+    <img src="../static/assets/Group-5.png" class="img-right-second"></img>
+
+    <div class="dashboard-page">
+
+        <div class="sidebar">
+
+            <div class="sidebar-avatar">
+                <img src="../static/assets/Avatar.png" alt="">
+                <div class="avatar-details">
+                    <div>Product Designer</div>
+                    <div>Andrew Smith</div>
+                </div>
+            </div>
+
+            <ul class="sidebar-list">
+
+                {% if session.get('is_admin') %}
+                <li >
+                    <a href="/dashboard" class="side-item">
+                        <img src="../static/assets/humbleicons_dashboard.png" alt="">
+                        <div>Dashboard</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if not session.get('is_admin') %}
+                <div class="dropdown">
+                    <li class="side-item" onclick="toggleDropdown()">
+                        <img src="../static/assets/mdi_report-box-outline.png" alt="">
+                        <div>Report</div>
+                    </li>
+
+                    <div class="dropdown-collapse" id="dropdown-target">
+
+                        <div class="dropdown-content">
+                            <a href="/new-report" class="dropdown-item">
+                                New Report
+                            </a>
+                            <a href="/past-report" class="dropdown-item">
+                                Past Report
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif %}
+
+                {% if session.get('is_admin') %}
+                <li>
+                    <a href="/complaints" class="side-item">
+                        <img src="../static/assets/zondicons_exclamation-outline.png" alt="">
+                        <div>Complaints</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/live"  class="side-item">
+                        <img src="../static/assets/fluent_live-20-filled.png" alt="">
+                        <div>Live</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/notifications"  class="side-item">
+                        <img src="../static/assets/basil_notification-on-outline.png" alt="">
+                        <div>Notify</div>
+                    </a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+            
+            {% if not session.get('is_admin') %}
+            <div class="sidebar-footer">
+                <div class="text">
+                  <div>Let's start!</div>
+                  <p>Creating or adding new reports couldn't be easier</p>
+                </div>
+                <a class="new-report-btn">
+                  <img src="../static/assets/Frame 1039.png" />
+                  <div >Add New Reports</div>
+                </a>
+            </div>
+            {% endif %}
+            
+        </div>
+
+        <div class="dashboard-container">
+            
+            <div class="form-heading">
+                <div class="titles">
+                    <div class="form-title">Dashboard</div>
+                </div>
+            </div>
+            
+            <div>
+                
+                <div class="form-component">
+                    <label>Admin</label>
+                    <div id="admin">Rahul</div>
+                </div>
+                <div class="form-component">
+                    <label >Location</label>
+                    <div id="location">Location</div>
+                </div>
+                <div class="form-component">
+                    <label >Total Poppulation</label>
+                    <div id="total_population">9989899</div>
+                </div>
+                <div class="form-component">
+                    <label >Number of missing Cases received</label>
+                    <div id="missing_cases_received">342</div>
+                </div>
+                <div class="form-component">
+                    <label >Number of missing Cases solved</label>
+                    <div id="missing_cases_solved">233</div>
+                </div>
+                <div class="form-component">
+                    <label >Number of Cases pending</label>
+                    <div id="cases_pending">112</div>
+                </div>
+                <div class="form-component">
+                    <label >Most vulnerable zone</label>
+                    <div id="most_vulnerable_zone">Lorem ipsum dolor sit amet.</div>
+                </div>
+                <div class="form-component">
+                    <label >Least vulnerable zone</label>
+                    <div id="least_vulnerable_zone">Lorem ipsum dolor sit amet consectetur. asdasdasdsdasdas asdasd asdasd asdas das d asd asd asd</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+
+    
+</body>
+<script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById('dropdown-target');
+        dropdown.classList.toggle('active');
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        fetch('/dashboard', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log(data)
+                if ('dashboard_data' in data) {
+                    document.getElementById('admin').innerText = data.dashboard_data.admin;
+                    document.getElementById('location').innerText = data.dashboard_data.location;
+                    document.getElementById('total_population').innerText = data.dashboard_data.total_population;
+                    document.getElementById('missing_cases_received').innerText = data.dashboard_data.missing_cases_received;
+                    document.getElementById('missing_cases_solved').innerText = data.dashboard_data.missing_cases_solved;
+                    document.getElementById('cases_pending').innerText = data.dashboard_data.cases_pending;
+                    document.getElementById('most_vulnerable_zone').innerText = data.dashboard_data.most_vulnerable_zone;
+                    document.getElementById('least_vulnerable_zone').innerText = data.dashboard_data.least_vulnerable_zone;
+                } else {
+                    console.error('Error: Dashboard data not available');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
+</html>
